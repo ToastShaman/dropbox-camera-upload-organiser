@@ -1,0 +1,59 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id "org.jetbrains.kotlin.kapt" version "1.5.31"
+    id 'com.palantir.graal' version '0.9.0'
+    id 'java'
+}
+
+group 'com.github.toastshaman'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+kapt {
+    arguments {
+        arg("project", "${project.group}/${project.name}")
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+graal {
+    mainClass 'com.github.toastshaman.dropbox.MainKt'
+    outputName 'camera-uploads'
+    javaVersion '11'
+    graalVersion '21.3.0'
+    option '--enable-url-protocols=https'
+    option '-H:IncludeResources=.*trusted-certs.raw'
+    option '-H:IncludeResources=.*simplelogger.properties'
+}
+
+dependencies {
+    kapt 'info.picocli:picocli-codegen:4.6.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation 'info.picocli:picocli:4.6.1'
+    implementation 'com.dropbox.core:dropbox-core-sdk:5.0.0'
+    implementation(platform("dev.forkhandles:forkhandles-bom:1.11.2.1"))
+    implementation("dev.forkhandles:values4k")
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
