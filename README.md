@@ -17,4 +17,4 @@ For example `/Camera Uploads/hello.jpg` will be moved to `/Pictures/2021-05/hell
 
 ## Generating an API Access Token
 
-Follow the [Dropbox OAuth-guide](https://developers.dropbox.com/oauth-guide).
+Follow the [Dropbox OAuth Guide](https://developers.dropbox.com/oauth-guide).
